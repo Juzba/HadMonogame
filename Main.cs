@@ -16,13 +16,17 @@ namespace HadMonogame
         public static void main()
         {
             if (list.Count == 0)
+                for (int i = 0; i < 3; i++)
+                {
+                    list.Add(new Cube(X, Y));
+                    X += 50;
+                }
+            else if (true) ; /// start
             {
-                Cube body = new(X, Y);
-                list.Add(body); list.Add(body); list.Add(body);
+                X += 50;
+                list.Add(new Cube(X, Y));
+                list.RemoveAt(0);
             }
-            X += 50;
-            list.Add(new Cube(X, Y));
-            list.RemoveAt(0);
 
 
         }
