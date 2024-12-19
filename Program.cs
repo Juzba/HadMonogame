@@ -1,3 +1,3 @@
 ﻿
-using var game = new HadMonogame.Game1();
+using var game = new HadMonogame.Skripts.Game1();
 game.Run();

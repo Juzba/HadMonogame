@@ -1,18 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.ComponentModel;
+using System.Threading;
 
-namespace HadMonogame
+namespace HadMonogame.Skripts
 {
     public class Game1 : Game
     {
+        static GameSettings gs = new();
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Texture2D _player;
+        private Texture2D _playerBody;
+        private Texture2D _playerHead;
+
 
         public Game1()
         {
+
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1280; // Šířka
+            _graphics.PreferredBackBufferHeight = 720; // Výška
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -26,26 +34,16 @@ namespace HadMonogame
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _player = Content.Load<Texture2D>("sprites/hadv1");
+            _playerBody = Content.Load<Texture2D>("sprites/body");
+            _playerHead = Content.Load<Texture2D>("sprites/head");
 
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-             
-
-            if (Main.loopTime(((float)gameTime.TotalGameTime.TotalSeconds)))      // Kontroluje cas a pohne se pri kazdem intervalu
-            {
-                     Main.MainProgram();
-            }
-
-
+            Main.IfChangeState((float)gameTime.TotalGameTime.TotalSeconds, this);
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
@@ -57,7 +55,10 @@ namespace HadMonogame
 
             foreach (var item in Main.List)
             {
-                _spriteBatch.Draw(_player,new Rectangle(item.X,item.Y,100,100),Color.White);
+                if (item == Main.List[Main.List.Count - 1])
+                { _spriteBatch.Draw(_playerHead, new Rectangle(item.X, item.Y, gs.Width, gs.Height), Color.White); }
+                else
+                { _spriteBatch.Draw(_playerBody, new Rectangle(item.X, item.Y, gs.Width, gs.Height), Color.White); }
             }
 
             _spriteBatch.End();
