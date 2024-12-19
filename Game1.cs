@@ -8,9 +8,7 @@ namespace HadMonogame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Texture2D player;
-        private Texture texture;
-        Game game;
+        private Texture2D _player;
 
         public Game1()
         {
@@ -28,7 +26,7 @@ namespace HadMonogame
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = Content.Load<Texture2D>("sprites/Cube");
+            _player = Content.Load<Texture2D>("sprites/hadv1");
 
             // TODO: use this.Content to load your game content here
         }
@@ -38,9 +36,11 @@ namespace HadMonogame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (Main.loopTime(((float)gameTime.TotalGameTime.TotalSeconds)))
+             
+
+            if (Main.loopTime(((float)gameTime.TotalGameTime.TotalSeconds)))      // Kontroluje cas a pohne se pri kazdem intervalu
             {
-                     Main.main();
+                     Main.MainProgram();
             }
 
 
@@ -55,9 +55,9 @@ namespace HadMonogame
 
             _spriteBatch.Begin();
 
-            foreach (var item in Main.list)
+            foreach (var item in Main.List)
             {
-                _spriteBatch.Draw(player,new Rectangle(item.X,item.Y,100,100),Color.White);
+                _spriteBatch.Draw(_player,new Rectangle(item.X,item.Y,100,100),Color.White);
             }
 
             _spriteBatch.End();
