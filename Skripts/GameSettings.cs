@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HadMonogame.Skripts
 {
@@ -14,13 +10,29 @@ namespace HadMonogame.Skripts
         public readonly int Width;
         public readonly int Height;
 
+        public List<Cube> List;
+        public float lastGameTime;
+        public int x;
+        public int y;
+        public bool start;
+        public string smer;
+        public string stopSmer;
+
         public GameSettings()
         {
             Speed = 1;
             posun = 125; ;
-            casPosunu = 4f;
+            casPosunu = 0.5f;
             Width = 200;
             Height = 200;
+
+            List = new();
+            lastGameTime = 0f;
+            x = 200;
+            y = 200;
+            start = false;
+            smer = "right";
+            stopSmer = "left";
         }
     }
 
