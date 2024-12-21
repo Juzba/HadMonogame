@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace HadMonogame.Skripts
 {
@@ -7,10 +8,12 @@ namespace HadMonogame.Skripts
         public int Speed;
         public readonly int posun;
         public readonly float casPosunu;
+        public readonly float casPosunuStrike;
         public readonly int Width;
         public readonly int Height;
 
         public List<Cube> List;
+        public List<Strike> ListOfStrikes;
         public float lastGameTime;
         public int x;
         public int y;
@@ -21,12 +24,14 @@ namespace HadMonogame.Skripts
         public GameSettings()
         {
             Speed = 1;
-            posun = 125; ;
+            posun = 90; 
             casPosunu = 0.5f;
-            Width = 200;
-            Height = 200;
+            casPosunuStrike = 0.25f;
+            Width = 142;
+            Height = 142;
 
             List = new();
+            ListOfStrikes = new();
             lastGameTime = 0f;
             x = 200;
             y = 200;

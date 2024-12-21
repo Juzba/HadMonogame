@@ -10,12 +10,13 @@ namespace HadMonogame.Skripts;
 
 public class Game1 : Game
 {
-    //static GameSettings gs = new();
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private SpriteFont _font;
     private Texture2D _playerBody;
     private Texture2D _playerHead;
+    private Texture2D _strike1;
+    private Texture2D _strike2;
 
 
     public Game1()
@@ -28,11 +29,13 @@ public class Game1 : Game
         IsMouseVisible = true;
     }
 
+
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
         base.Initialize();
     }
+
 
     protected override void LoadContent()
     {
@@ -40,16 +43,21 @@ public class Game1 : Game
         _font = Content.Load<SpriteFont>("font/DFont");
         _playerBody = Content.Load<Texture2D>("sprites/body");
         _playerHead = Content.Load<Texture2D>("sprites/head");
+        _strike1 = Content.Load<Texture2D>("sprites/strike1");
+        _strike2 = Content.Load<Texture2D>("sprites/strike2");
 
         // TODO: use this.Content to load your game content here
     }
 
+
     protected override void Update(GameTime gameTime)
     {
-        Had.IfChangeState((float)gameTime.TotalGameTime.TotalSeconds, this);
+        GameChange.GameUpdate(((float)gameTime.TotalGameTime.TotalSeconds),this);
+
         // TODO: Add your update logic here
         base.Update(gameTime);
     }
+
 
     protected override void Draw(GameTime gameTime)
     {
@@ -77,6 +85,14 @@ public class Game1 : Game
             _spriteBatch.DrawString(_font,"Vector: ", new Vector2(1000,10),Color.Red);
 
         }
+
+        //foreach (var item in Had.gs.ListOfStrikes)
+        //{
+        //  _spriteBatch.Draw(_strike1, item, Color.White);
+        //}
+
+
+
         _spriteBatch.End();
 
 

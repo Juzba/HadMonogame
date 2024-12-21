@@ -7,7 +7,7 @@ namespace HadMonogame.Skripts;
 public class Had
 {
     internal static GameSettings gs = new();
-    private static void MainProgram()
+    internal static void MainProgram()
     {
         switch (gs.smer)
         {
@@ -29,7 +29,7 @@ public class Had
         gs.List.RemoveAt(0);
     }
 
-    private static void Spawn()
+    internal static void Spawn()
     {
         for (int i = 0; i < 3; i++)
         {
@@ -70,29 +70,6 @@ public class Had
         }
     }
 
-    public static void IfChangeState(float gameTime, Game1 game)
-    {
-        Hotkeys.HotkeysMove(game,ref gs);
-
-        if (gameTime - gs.lastGameTime > gs.casPosunu)    // Kontroluje cas a pohne se pri kazdem intervalu
-        {
-            gs.lastGameTime = gameTime;
-            if (gs.List.Count == 0) Spawn();
-            else if (gs.start)
-            {
-                MainProgram();
-            }
-        }
-
-
-
-
-
-
-
-
-
-    }
 }
 
 

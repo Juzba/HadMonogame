@@ -27,6 +27,8 @@ namespace HadMonogame.Skripts
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.D):
                     if (!Had.gs.stopSmer.Contains("right")) Had.gs.smer = "right"; Had.gs.start = true;
                     break;
+                case var _ when Keyboard.GetState().IsKeyDown(Keys.Space): Strike.Fire();
+                    break;
 
 
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.Enter):  gameSettings = new();
