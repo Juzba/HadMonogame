@@ -1,17 +1,14 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace HadMonogame.Skripts
 {
     public static class Hotkeys
     {
+        private static Stopwatch sw = Stopwatch.StartNew();
 
 
-      internal static void HotkeysMove(Game1 game, ref GameSettings gameSettings)
+        internal static void HotkeysMove(Game1 game, ref Settings gameSettings)
         {
             switch (true)
             {
@@ -27,13 +24,16 @@ namespace HadMonogame.Skripts
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.D):
                     if (!Had.gs.stopSmer.Contains("right")) Had.gs.smer = "right"; Had.gs.start = true;
                     break;
-                case var _ when Keyboard.GetState().IsKeyDown(Keys.Space): Strike.Fire();
+                case var _ when Keyboard.GetState().IsKeyDown(Keys.Space):
+                    if (sw.Elapsed.TotalSeconds > 1) { Strike.MissileFire(); sw.Restart(); }
                     break;
 
 
-                case var _ when Keyboard.GetState().IsKeyDown(Keys.Enter):  gameSettings = new();
+                case var _ when Keyboard.GetState().IsKeyDown(Keys.Enter):
+                    gameSettings = new();
                     break;
-                case var _ when Keyboard.GetState().IsKeyDown(Keys.Escape): game.Exit();
+                case var _ when Keyboard.GetState().IsKeyDown(Keys.Escape):
+                    game.Exit();
                     break;
 
             }

@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.ComponentModel;
-using System.Diagnostics.Tracing;
-using System.Threading;
 
 
 namespace HadMonogame.Skripts;
@@ -12,12 +8,6 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private SpriteFont _font;
-    private Texture2D _playerBody;
-    private Texture2D _playerHead;
-    private Texture2D _strike1;
-    private Texture2D _strike2;
-
 
     public Game1()
     {
@@ -39,12 +29,8 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        Draw1.Draw1Content(this);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _font = Content.Load<SpriteFont>("font/DFont");
-        _playerBody = Content.Load<Texture2D>("sprites/body");
-        _playerHead = Content.Load<Texture2D>("sprites/head");
-        _strike1 = Content.Load<Texture2D>("sprites/strike1");
-        _strike2 = Content.Load<Texture2D>("sprites/strike2");
 
         // TODO: use this.Content to load your game content here
     }
@@ -52,7 +38,7 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        GameChange.GameUpdate(((float)gameTime.TotalGameTime.TotalSeconds),this);
+        GameUpdate.GameUpdate1(((float)gameTime.TotalGameTime.TotalSeconds), this);
 
         // TODO: Add your update logic here
         base.Update(gameTime);
@@ -65,42 +51,12 @@ public class Game1 : Game
 
         _spriteBatch.Begin();
 
-        
-        foreach (var item in Had.gs.List)
-        {
-            if (item == Had.gs.List[Had.gs.List.Count - 1])
-            {
-                _spriteBatch.Draw(
-                _playerHead,
-                new Rectangle(item.X, item.Y, Had.gs.Width, Had.gs.Height),
-                null,
-                Color.White,
-                Had.HeadRotation(),
-                Had.HeadRotationVector(),
-                SpriteEffects.None,
-                0f);
-            }
-            else
-            { _spriteBatch.Draw(_playerBody, new Rectangle(item.X, item.Y, Had.gs.Width, Had.gs.Height), Color.White); }
-            _spriteBatch.DrawString(_font,"Vector: ", new Vector2(1000,10),Color.Red);
-
-        }
-
-        //foreach (var item in Had.gs.ListOfStrikes)
-        //{
-        //  _spriteBatch.Draw(_strike1, item, Color.White);
-        //}
-
-
+        Draw1.Draw1Main(_spriteBatch);
 
         _spriteBatch.End();
 
 
-
-
-
         // TODO: Add your drawing code here
-
         base.Draw(gameTime);
     }
 }

@@ -1,12 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace HadMonogame.Skripts;
 
 public class Had
 {
-    internal static GameSettings gs = new();
+
+    public int X;
+    public int Y;
+
+    public Had(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+
+
+    internal static Settings gs = new();
     internal static void MainProgram()
     {
         switch (gs.smer)
@@ -25,7 +35,7 @@ public class Had
                 break;
         }
 
-        gs.List.Add(new Cube(gs.x, gs.y));
+        gs.List.Add(new Had(gs.x, gs.y));
         gs.List.RemoveAt(0);
     }
 
@@ -34,7 +44,7 @@ public class Had
         for (int i = 0; i < 3; i++)
         {
             gs.x += gs.posun;
-            gs.List.Add(new Cube(gs.x, gs.y));
+            gs.List.Add(new Had(gs.x, gs.y));
         }
     }
 
@@ -59,9 +69,9 @@ public class Had
         switch (gs.stopSmer)
         {
             case ("down"):
-                return new Vector2(520, 510);
+                return new Vector2(515, 510);
             case ("up"):
-                return new Vector2(0,0);
+                return new Vector2(0, 0);
             case ("right"):
                 return new Vector2(3, 515);
             case ("left"):

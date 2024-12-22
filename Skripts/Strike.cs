@@ -1,19 +1,58 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace HadMonogame.Skripts
 {
     internal class Strike
     {
-        public Vector2 Position { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public string Direction { get; set; }
 
-        public Strike(Vector2 position)
+        public int StartX { get; }
+        public int StartY { get; }
+
+        public Strike(int x, int y, string direction)
         {
-            Position = position;
+            X = x;
+            Y = y;
+            Direction = direction;
+            StartX = x;
+            StartY = y;
         }
 
-        public static void Fire()
+        public static void MissileFire() => Had.gs.ListOfMissiles.Add(new Strike(Had.gs.x, Had.gs.y, Had.gs.smer));
+        public static void MissileRemove()
         {
-            Had.gs.ListOfStrikes.Add(new Strike(new Vector2(Had.gs.x,Had.gs.y)));
+            foreach (var missile in Had.gs.ListOfMissiles)
+                if (missile.X > missile.StartX + Had.gs.removeMissileRange || missile.X < missile.StartX + (-1 * Had.gs.removeMissileRange)
+                    || missile.Y > missile.StartX + Had.gs.removeMissileRange || missile.Y < missile.StartX + (-1 * Had.gs.removeMissileRange))
+                { Had.gs.ListOfMissiles.Remove(missile); break; }
+        }
+
+
+        public static void MissileOnMove()
+        {
+            if (Had.gs.ListOfMissiles.Count > 0)
+            {
+                foreach (var missile in Had.gs.ListOfMissiles)
+                {
+                    switch (missile.Direction)
+                    {
+                        case "up":
+                            missile.Y -= Had.gs.posunMissile;
+                            break;
+                        case "down":
+                            missile.Y += Had.gs.posunMissile;
+                            break;
+                        case "left":
+                            missile.X -= Had.gs.posunMissile;
+                            break;
+                        case "right":
+                            missile.X += Had.gs.posunMissile;
+                            break;
+                    }
+                }
+            }
         }
 
 
