@@ -41,44 +41,14 @@ public class Had
 
     internal static void Spawn()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 9; i++)
         {
             gs.x += gs.posun;
             gs.List.Add(new Had(gs.x, gs.y));
         }
     }
 
-    public static float HeadRotation()
-    {
-        switch (gs.stopSmer)
-        {
-            case ("down"):
-                return 3.14f;
-            case ("up"):
-                return 0f;
-            case ("right"):
-                return 1.57f;
-            case ("left"):
-                return 4.71f;
-            default: return 0f;
-        }
-    }
-
-    public static Vector2 HeadRotationVector()
-    {
-        switch (gs.stopSmer)
-        {
-            case ("down"):
-                return new Vector2(515, 510);
-            case ("up"):
-                return new Vector2(0, 0);
-            case ("right"):
-                return new Vector2(3, 515);
-            case ("left"):
-                return new Vector2(512, -5);
-            default: return new Vector2(0, 0);
-        }
-    }
+   
 
 }
 

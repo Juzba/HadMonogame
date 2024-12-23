@@ -25,7 +25,7 @@ namespace HadMonogame.Skripts
                     if (!Had.gs.stopSmer.Contains("right")) Had.gs.smer = "right"; Had.gs.start = true;
                     break;
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.Space):
-                    if (sw.Elapsed.TotalSeconds > 1) { Strike.MissileFire(); sw.Restart(); }
+                    if (sw.Elapsed.TotalSeconds > 1 || Had.gs.ListOfMissiles.Count == 0) { Missile.MissileFire(); sw.Restart(); }
                     break;
 
 

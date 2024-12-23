@@ -1,23 +1,31 @@
-﻿namespace HadMonogame.Skripts
+﻿using HadMonogame.Skripts.Enemy;
+
+namespace HadMonogame.Skripts
 {
     internal class GameUpdate
     {
+        private static float _lastGameTime = 0;
+        private static float _lastGameTime2 = 0;
 
         public static void GameUpdate1(float gameTime, Game1 game)
         {
             Hotkeys.HotkeysMove(game, ref Had.gs);
 
-            if (GameTimeCounter(gameTime, Had.gs.lastGameTime, Had.gs.casPosunu, ref Had.gs.lastGameTime))
+            if (GameTimeCounter(gameTime, _lastGameTime, Had.gs.casPosunu, ref _lastGameTime))
             {
                 if (Had.gs.List.Count == 0) Had.Spawn();
-                else if (Had.gs.start) Had.MainProgram();
+                else if (Had.gs.start)
+                {
+                    Had.MainProgram();
+                    Enemy.Enemy.Main();
+                }
             }
 
-            if (GameTimeCounter(gameTime, Had.gs.lastGameTimeStrike, Had.gs.casPosunuStrike, ref Had.gs.lastGameTimeStrike))
+            if (GameTimeCounter(gameTime, _lastGameTime2, 1f , ref _lastGameTime2))
             {
-                Strike.MissileRemove();                                                                                  // smaze strelu az dosahne urcite vzdalenosti
+                Missile.MissileRemove();                                                                                  // smaze strelu az dosahne urcite vzdalenosti
             }
-            Strike.MissileOnMove();
+            Missile.MissileOnMove();
 
 
         }

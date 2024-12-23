@@ -49,9 +49,11 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
+
+
         _spriteBatch.Begin();
 
-        Draw1.Draw1Main(_spriteBatch);
+        Draw1.Draw1Main(_spriteBatch, GraphicsDevice);
 
         _spriteBatch.End();
 
