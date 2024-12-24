@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using HadMonogame.Skripts.Enemy;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace HadMonogame.Skripts;
 
@@ -20,78 +21,47 @@ internal class Missile
         StartY = y;
     }
 
+    
     public static bool ChangeFace;                    // Zmena obliceje pri vystrelu
 
-    public static void MissileFire()
+    public static void MissileFire(Settings settings)
     {
-        Had.gs.ListOfMissiles.Add(new Missile(Had.gs.x, Had.gs.y, Had.gs.smer));
+        settings.ListOfMissiles.Add(new Missile(settings.x, settings.y, settings.smer));
         ChangeFace = true;
     }
 
 
-    public static void MissileRemove()
+    public static void MissileRemove(Settings settings)
     {
-        foreach (var missile in Had.gs.ListOfMissiles)
-            if (missile.X > missile.StartX + Had.gs.removeMissileRange || missile.X < missile.StartX + (-1 * Had.gs.removeMissileRange)
-                || missile.Y > missile.StartX + Had.gs.removeMissileRange || missile.Y < missile.StartX + (-1 * Had.gs.removeMissileRange))
-            { Had.gs.ListOfMissiles.Remove(missile); break; }
+        foreach (var missile in settings.ListOfMissiles)
+            if (missile.X > missile.StartX + settings.removeMissileRange || missile.X < missile.StartX + (-1 * settings.removeMissileRange)
+                || missile.Y > missile.StartX + settings.removeMissileRange || missile.Y < missile.StartX + (-1 * settings.removeMissileRange))
+            { settings.ListOfMissiles.Remove(missile); break; }
     }
 
 
-    public static void MissileOnMove()
+    public static void MissileOnMove(Settings settings)
     {
-        if (Had.gs.ListOfMissiles.Count > 0)
+        if (settings.ListOfMissiles.Count > 0)
         {
-            foreach (var missile in Had.gs.ListOfMissiles)
+            foreach (var missile in settings.ListOfMissiles)
             {
                 switch (missile.Direction)
                 {
                     case "up":
-                        missile.Y -= Had.gs.posunMissile;
+                        missile.Y -= settings.posunMissile;
                         break;
                     case "down":
-                        missile.Y += Had.gs.posunMissile;
+                        missile.Y += settings.posunMissile;
                         break;
                     case "left":
-                        missile.X -= Had.gs.posunMissile;
+                        missile.X -= settings.posunMissile;
                         break;
                     case "right":
-                        missile.X += Had.gs.posunMissile;
+                        missile.X += settings.posunMissile;
                         break;
                 }
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

@@ -1,13 +1,13 @@
-﻿using HadMonogame.Skripts.others;
+﻿using HadMonogame.Skripts.Enemy;
+using HadMonogame.Skripts.others;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Timers;
 
 namespace HadMonogame.Skripts;
 
 internal class Draw1
 {
-    //private static GraphicsDeviceManager _graphics;
+    
     private static SpriteFont _font;
     private static Texture2D _playerBody;
     private static Texture2D _playerHead;
@@ -19,7 +19,8 @@ internal class Draw1
     private static Texture2D _strike2;
     private static int _count = 0;
     
-    
+
+
     public static void Draw1Content(Game1 game1)
     {
         _font = game1.Content.Load<SpriteFont>("font/DFont");
@@ -33,37 +34,37 @@ internal class Draw1
         _strike2 = game1.Content.Load<Texture2D>("sprites/strike2");
     }
 
-    public static void Draw1Main(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+    public void Draw1Main(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Settings settings)
     {
         var snakeFace = HeadAnimation(_playerHead1, _playerHead3, _playerHead2);
 
         spriteBatch.Draw(_backGround, new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height), Color.White);
 
 
-        foreach (var item in Had.gs.List)                                                                                            // Snake
+        foreach (var item in settings.List)                                                                                            // Snake
         {
-            if (item == Had.gs.List[Had.gs.List.Count - 1])                                                                          // Head
+            if (item == settings.List[settings.List.Count - 1])                                                                          // Head
             {
                 spriteBatch.Draw(
                 snakeFace,
-                new Rectangle(item.X, item.Y, Had.gs.Width, Had.gs.Height),
+                new Rectangle(item.X, item.Y, settings.Width, settings.Height),
                 null,
                 Color.White,
-                RotationDraw.Rotation(RotationDraw.HeadRotation, Had.gs.stopSmer),
-                RotationDraw.RotationVector(RotationDraw.HeadRotationVector, Had.gs.stopSmer),
+                RotationDraw.Rotation(RotationDraw.HeadRotation, settings.stopSmer),
+                RotationDraw.RotationVector(RotationDraw.HeadRotationVector, settings.stopSmer),
                 SpriteEffects.None,
                 0f);
             }
             else                                                                                                                    // Body
             {
-                spriteBatch.Draw(_playerBody, new Rectangle(item.X, item.Y, Had.gs.Width, Had.gs.Height), Color.White);
+                spriteBatch.Draw(_playerBody, new Rectangle(item.X, item.Y, settings.Width, settings.Height), Color.White);
             }
-            spriteBatch.DrawString(_font, "Pocet strel v letu:" + Had.gs.ListOfMissiles.Count, new Vector2(1000, 10), Color.Red);
+            spriteBatch.DrawString(_font, "Pocet strel v letu:" + settings.ListOfMissiles.Count, new Vector2(1000, 10), Color.Red);
             spriteBatch.DrawString(_font, "CountDown:" + _count, new Vector2(1000, 110), Color.Red);
 
         }
 
-        foreach (var item in Had.gs.ListOfMissiles)                                                                                 // Missile
+        foreach (var item in settings.ListOfMissiles)                                                                                 // Missile
         {
             spriteBatch.Draw(
                 AnimationTime(_strike1, _strike2),

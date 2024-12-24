@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HadMonogame.Skripts.Enemy;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -6,6 +7,9 @@ namespace HadMonogame.Skripts;
 
 public class Game1 : Game
 {
+    private GameUpdate _gameUpdate = new();
+    private Settings _settings;
+    private Draw1 _draw1 = new Draw1();
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
@@ -38,7 +42,8 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        GameUpdate.GameUpdate1(((float)gameTime.TotalGameTime.TotalSeconds), this);
+        _settings = Settings.SettingThis;
+        _gameUpdate.GameUpdate1(((float)gameTime.TotalGameTime.TotalSeconds), this, _settings);
 
         // TODO: Add your update logic here
         base.Update(gameTime);
@@ -53,7 +58,7 @@ public class Game1 : Game
 
         _spriteBatch.Begin();
 
-        Draw1.Draw1Main(_spriteBatch, GraphicsDevice);
+        _draw1.Draw1Main(_spriteBatch, GraphicsDevice, _settings);
 
         _spriteBatch.End();
 

@@ -6,26 +6,28 @@ namespace HadMonogame.Skripts
     {
         private static float _lastGameTime = 0;
         private static float _lastGameTime2 = 0;
+        private Hotkeys _hotkeys = new Hotkeys();
+        private Snake _had = new Snake();
 
-        public static void GameUpdate1(float gameTime, Game1 game)
+        public void GameUpdate1(float gameTime, Game1 game, Settings settings)
         {
-            Hotkeys.HotkeysMove(game, ref Had.gs);
+            _hotkeys.HotkeysMove(game, settings);
 
-            if (GameTimeCounter(gameTime, _lastGameTime, Had.gs.casPosunu, ref _lastGameTime))
+            if (GameTimeCounter(gameTime, _lastGameTime, settings.casPosunu, ref _lastGameTime))
             {
-                if (Had.gs.List.Count == 0) Had.Spawn();
-                else if (Had.gs.start)
+                if (settings.List.Count == 0) _had.Spawn(settings);
+                else if (settings.start)
                 {
-                    Had.MainProgram();
-                    Enemy.Enemy.Main();
+                    _had.MainProgram(settings);
+                    Enemy.Enemy.Main(settings);
                 }
             }
 
-            if (GameTimeCounter(gameTime, _lastGameTime2, 1f , ref _lastGameTime2))
+            if (GameTimeCounter(gameTime, _lastGameTime2, 1f, ref _lastGameTime2))
             {
-                Missile.MissileRemove();                                                                                  // smaze strelu az dosahne urcite vzdalenosti
+                Missile.MissileRemove(settings);                                                                                  // smaze strelu az dosahne urcite vzdalenosti
             }
-            Missile.MissileOnMove();
+            Missile.MissileOnMove(settings);
 
 
         }

@@ -11,7 +11,6 @@ namespace HadMonogame.Skripts.Enemy
     internal class DrawEnemy
     {
 
-        //private static GraphicsDeviceManager _graphics;
         private static SpriteFont _font;
         private static Texture2D _Enemy1;
         private static int _count;

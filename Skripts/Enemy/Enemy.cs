@@ -15,9 +15,10 @@ internal class Enemy
         Y = y;
     }
 
-    public static void Main()
-    {
 
+    public static void Main(Settings settings)
+    {
+    //if()
     }
 
 

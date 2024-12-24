@@ -1,36 +1,39 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using HadMonogame.Skripts.Enemy;
+using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace HadMonogame.Skripts
 {
-    public static class Hotkeys
+    public class Hotkeys
     {
         private static Stopwatch sw = Stopwatch.StartNew();
 
 
-        internal static void HotkeysMove(Game1 game, ref Settings gameSettings)
+        internal void HotkeysMove(Game1 game, Settings settings)
         {
             switch (true)
             {
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.W):
-                    if (!Had.gs.stopSmer.Contains("up")) Had.gs.smer = "up"; Had.gs.start = true;
+                    if (!settings.stopSmer.Contains("up")) settings.smer = "up"; settings.start = true;
                     break;
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.A):
-                    if (!Had.gs.stopSmer.Contains("left")) Had.gs.smer = "left"; Had.gs.start = true;
+                    if (!settings.stopSmer.Contains("left")) settings.smer = "left"; settings.start = true;
                     break;
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.S):
-                    if (!Had.gs.stopSmer.Contains("down")) Had.gs.smer = "down"; Had.gs.start = true;
+                    if (!settings.stopSmer.Contains("down")) settings.smer = "down"; settings.start = true;
                     break;
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.D):
-                    if (!Had.gs.stopSmer.Contains("right")) Had.gs.smer = "right"; Had.gs.start = true;
+                    if (!settings.stopSmer.Contains("right")) settings.smer = "right"; settings.start = true;
                     break;
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.Space):
-                    if (sw.Elapsed.TotalSeconds > 1 || Had.gs.ListOfMissiles.Count == 0) { Missile.MissileFire(); sw.Restart(); }
+                    if (sw.Elapsed.TotalSeconds > 1 || settings.ListOfMissiles.Count == 0) { Missile.MissileFire(settings); sw.Restart(); }
                     break;
 
 
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.Enter):
-                    gameSettings = new();
+                    if(sw.Elapsed.TotalSeconds > 1){ Settings.SettingThis = new();sw.Restart();}
                     break;
                 case var _ when Keyboard.GetState().IsKeyDown(Keys.Escape):
                     game.Exit();
