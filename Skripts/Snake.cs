@@ -36,7 +36,15 @@ public class Snake
         }
 
         settings.List.Add(new Snake(settings.x, settings.y));
-        settings.List.RemoveAt(0);
+
+        bool eatEnemy = false;
+        foreach (var enemy in settings.EnemyList)
+            if (settings.x == enemy.X && settings.y == enemy.Y)
+            { 
+                settings.EnemyList.Remove(enemy); eatEnemy = true; break;
+            }
+
+        if (!eatEnemy) settings.List.RemoveAt(0);
     }
 
     internal void Spawn(Settings settings)

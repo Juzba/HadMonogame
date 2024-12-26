@@ -10,6 +10,7 @@ public class Game1 : Game
     private GameUpdate _gameUpdate = new();
     private Settings _settings;
     private Draw1 _draw1 = new Draw1();
+    private DrawEnemy _drawEnemy = new DrawEnemy();
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
@@ -33,7 +34,8 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        Draw1.Draw1Content(this);
+        _draw1.Draw1Content(this);
+        _drawEnemy.DrawEnemyContent(this);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
@@ -59,6 +61,7 @@ public class Game1 : Game
         _spriteBatch.Begin();
 
         _draw1.Draw1Main(_spriteBatch, GraphicsDevice, _settings);
+        _drawEnemy.DrawEnemyMain(_spriteBatch, GraphicsDevice, _settings);
 
         _spriteBatch.End();
 

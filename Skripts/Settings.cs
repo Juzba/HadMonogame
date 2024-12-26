@@ -35,6 +35,7 @@ internal class Settings
 
         List = new();
         ListOfMissiles = new();
+        EnemyList = new();
         x = 200;
         y = 200;
         start = false;

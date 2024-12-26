@@ -21,7 +21,7 @@ internal class Draw1
     
 
 
-    public static void Draw1Content(Game1 game1)
+    public void Draw1Content(Game1 game1)
     {
         _font = game1.Content.Load<SpriteFont>("font/DFont");
         _playerBody = game1.Content.Load<Texture2D>("sprites/body");
@@ -60,7 +60,7 @@ internal class Draw1
                 spriteBatch.Draw(_playerBody, new Rectangle(item.X, item.Y, settings.Width, settings.Height), Color.White);
             }
             spriteBatch.DrawString(_font, "Pocet strel v letu:" + settings.ListOfMissiles.Count, new Vector2(1000, 10), Color.Red);
-            spriteBatch.DrawString(_font, "CountDown:" + _count, new Vector2(1000, 110), Color.Red);
+            spriteBatch.DrawString(_font, ($"HeadPosition: {settings.x}, {settings.y}."), new Vector2(1000, 110), Color.Red);
 
         }
 
